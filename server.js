@@ -12,13 +12,23 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// const db = knex({
+//   client: 'pg',
+//   connection: {
+//     host : '127.0.0.1',
+//     user : 'postgres',
+//     password : 'potato16',
+//     database : 'battleship'
+//   }
+// });
+
 const db = knex({
   client: 'pg',
   connection: {
-    host : '127.0.0.1',
-    user : 'postgres',
-    password : 'potato16',
-    database : 'battleship'
+    connectionString : process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+      }
   }
 });
 
