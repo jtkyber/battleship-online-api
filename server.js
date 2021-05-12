@@ -7,6 +7,7 @@ const register = require('./controllers/register');
 const login = require('./controllers/login');
 const socket = require('./controllers/socket');
 const friends = require('./controllers/friends');
+const game = require('./controllers/game');
 
 const app = express();
 app.use(express.json());
@@ -53,6 +54,8 @@ app.put('/addSelfToFriend', (req, res) => { friends.addSelfToFriend(req, res, db
 app.put('/updateFriendRequests', (req, res) => { friends.updateFriendRequests(req, res, db) })
 
 app.get('/getFriendRequests', (req, res) => { friends.getFriendRequests(req, res, db) })
+
+app.put('/updateWins', (req, res) => { friends.updateWins(req, res, db) })
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`app is running on port ${process.env.PORT}`);
