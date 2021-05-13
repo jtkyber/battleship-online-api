@@ -67,14 +67,16 @@ const getFriendRequests = (req, res, db) => {
 
 const getFriendsStatus = (req, res, db) => {
     const friendArr = [];
-    const numOfFriendsOnline = 1;
+    const numOfFriendsOnline = 0;
     const username = req.query.username;
     db('users').where('username', '=', username)
+    .returning('*')
     .then(user => {
         if (user[0].friends) {
             friendArr = user[0].friends.split(',');
-            friendArr.forEach(f=> {
+            friendArr.forEach(f => {
                 db('users').where('username', '=', f)
+                .returning('*')
                 .then(friend => {
                     if (friend.socketid) {
                         numOfFriendsOnline += 1;
