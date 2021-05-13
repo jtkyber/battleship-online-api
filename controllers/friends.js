@@ -76,7 +76,6 @@ const getFriendsStatus = (req, res, db) => {
             friendArr = user[0].friends.split(',');
             friendArr.forEach(f => {
                 db('users').where('username', '=', f)
-                .returning('*')
                 .then(friend => {
                     if (friend.socketid) {
                         numOfFriendsOnline += 1;
