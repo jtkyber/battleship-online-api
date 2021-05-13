@@ -65,7 +65,7 @@ const getFriendRequests = (req, res, db) => {
     .catch(err => res.status(400).json('Could not find friend requests'))
 }
 
-const getFriendsStatus = (req, res, db) => {
+const getFriendsOnline = (req, res, db) => {
     let friendArr = [];
     let numOfFriendsOnline = 0;
     const username = req.query.username;
@@ -85,5 +85,5 @@ module.exports = {
     addSelfToFriend,
     updateFriendRequests,
     getFriendRequests,
-    getFriendsStatus
+    getFriendsOnline
 };
