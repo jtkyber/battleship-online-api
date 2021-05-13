@@ -87,7 +87,7 @@ const getFriendsStatus = (req, res, db) => {
         } else {
             throw new Error('Could not find friends')
         }
-        res.json(numOfFriendsOnline)
+        res.json(25)
     })
     .catch(err => res.status(400).json(err))
 }
