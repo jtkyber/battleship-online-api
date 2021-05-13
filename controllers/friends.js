@@ -80,15 +80,14 @@ const getFriendsStatus = (req, res, db) => {
                 .then(friend => {
                     if (friend.socketid) {
                         numOfFriendsOnline += 1;
+                        res.json(friend);
                     }
-                    console.log(friend)
                 })
                 .catch(err => res.status(400).json('Could not access friend'))
             })
         } else {
             throw new Error('Could not find friends')
         }
-        res.json(numOfFriendsOnline);
     })
     .catch(err => res.status(400).json(err))
 }
