@@ -57,6 +57,8 @@ app.get('/getFriendRequests', (req, res) => { friends.getFriendRequests(req, res
 
 app.put('/updateWins', (req, res) => { game.updateWins(req, res, db) })
 
+app.get('/getFriendsStatus', (req, res) => { friends.getFriendsStatus(req, res, db) })
+
 app.listen(process.env.PORT || 3000, () => {
     console.log(`app is running on port ${process.env.PORT}`);
 })

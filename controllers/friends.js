@@ -65,11 +65,43 @@ const getFriendRequests = (req, res, db) => {
     .catch(err => res.status(400).json('Could not find friend requests'))
 }
 
+const getFriendsStatus = (req, res, db) => {
+    const friendArr = [];
+    const numOfFriendsOnline = 0;
+    const username = req.query.username;
+    db('users').where('username', '=', username)
+    .then(user => {
+        if (user[0].friends.length > 1) {
+            friendArr = user[0].friends.split(',');
+            friendArr.forEach(f=> {
+                db('users').where('username', '=', f)
+                .then(friend => {
+                    if (friend.socketid) {
+                        numOfFriendsOnline += 1;
+                    }
+                })
+                .catch(err => res.status(400).json('Could not access friend'))
+            })
+        } else if (user[0].friends.length === 1) {
+            db('users').where('username', '=', user[0].friends)
+            .then(friend => {
+                if (friend.socketid) {
+                    numOfFriendsOnline = 1;
+                }
+            })
+            .catch(err => res.status(400).json('Could not access friend'))
+        }
+        res.json(numOfFriendsOnline)
+    })
+    .catch(err => res.status(400).json('Could not find friend'))
+}
+
 module.exports = {
     getFriends,
     findFriend,
     addFriend,
     addSelfToFriend,
     updateFriendRequests,
-    getFriendRequests
+    getFriendRequests,
+    getFriendsStatus
 };
