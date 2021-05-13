@@ -69,7 +69,7 @@ const getFriendsStatus = (req, res, db) => {
     let friendArr = [];
     let numOfFriendsOnline = 0;
     const username = req.query.username;
-    db('users').count('friends').where('friends', 'like', `%${username}%`)
+    db('users').count('friends').where('friends', 'like', `%${username}%`).havingNotNull('socketid')
     .then(count => {
         res.json(count);
     })
