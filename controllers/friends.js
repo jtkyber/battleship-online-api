@@ -67,7 +67,7 @@ const getFriendRequests = (req, res, db) => {
 
 const getFriendsStatus = (req, res, db) => {
     const friendArr = [];
-    const numOfFriendsOnline = 0;
+    const numOfFriendsOnline = 1;
     const username = req.query.username;
     db('users').where('username', '=', username)
     .then(user => {
