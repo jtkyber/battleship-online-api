@@ -73,25 +73,6 @@ const getFriendsStatus = (req, res, db) => {
     .then(count => {
         res.json(count);
     })
-    // .returning('*')
-    // .then(user => {
-    //     if (user[0].friends) {
-    //         friendArr = user[0].friends.split(',');
-    //         friendArr.forEach(f => {
-    //             db('users').where('username', '=', f)
-    //             .returning('*')
-    //             .then(friend => {
-    //                 if (friend.socketid) {
-    //                     numOfFriendsOnline += 1;
-    //                     res.json(friend);
-    //                 }
-    //             })
-    //             .catch(err => res.status(400).json('Could not access friend'))
-    //         })
-    //     } else {
-    //         throw new Error('Could not find friends')
-    //     }
-    // })
     .catch(err => res.status(400).json(err))
 }
 
