@@ -8,6 +8,7 @@ const login = require('./controllers/login');
 const socket = require('./controllers/socket');
 const friends = require('./controllers/friends');
 const game = require('./controllers/game');
+const leaderboard = require('./controllers/leaderboard');
 
 const app = express();
 app.use(express.json());
@@ -58,6 +59,8 @@ app.get('/getFriendRequests', (req, res) => { friends.getFriendRequests(req, res
 app.put('/updateWins', (req, res) => { game.updateWins(req, res, db) })
 
 app.get('/getFriendsOnline', (req, res) => { friends.getFriendsOnline(req, res, db) })
+
+app.get('/getTopFive', (req, res) => { leaderboard.getTopFive(req, res, db) })
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`app is running on port ${process.env.PORT}`);
