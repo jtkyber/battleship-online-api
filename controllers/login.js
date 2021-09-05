@@ -11,7 +11,11 @@ const handleLogin = (req, res, db, bcrypt) => {
                 socketid: socketid
             })
             .then(data => {
-                res.json(data[0]);
+                if (socketid.length > 0) {
+                    res.json(data[0]);
+                } else {
+                    throw new Error('No socket id found')
+                }
             })
             .catch(err => res.status(400).json('Unable to get user'))
         } else {

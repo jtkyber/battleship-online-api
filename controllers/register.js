@@ -9,7 +9,11 @@ const handleRegister = (req, res, db, bcrypt) => {
         socketid: socketid
     })
     .then(user => {
-        res.json(user[0]);
+        if (socketid.length > 0) {
+            res.json(data[0]);
+        } else {
+            throw new Error('No socket id found')
+        }
     })
     .catch(err => res.status(400).json('unable to register'))
 }
