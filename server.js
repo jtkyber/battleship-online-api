@@ -62,6 +62,8 @@ app.get('/getFriendsOnline', (req, res) => { friends.getFriendsOnline(req, res, 
 
 app.get('/getTopFive', (req, res) => { leaderboard.getTopFive(req, res, db) })
 
+app.put('/updateSearching', (req, res) => { game.updateSearching(req, res, db) })
+
 app.listen(process.env.PORT || 3000, () => {
     console.log(`app is running on port ${process.env.PORT}`);
 })
