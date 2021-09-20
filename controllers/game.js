@@ -20,7 +20,16 @@ const updateSearching = (req, res, db) => {
     .catch(err => res.status(400).json('Searching failed'))
 }
 
+const findMatch = (req, res, db) => {
+    db('users').where('searchingformatch', 't').orWhereNot('socketid', null)
+    .then(user => {
+        res.json(user[0]);
+    })
+    .catch(err => res.status(400).json('Could not find match'))
+}
+
 module.exports = {
     updateWins,
-    updateSearching
+    updateSearching,
+    findMatch
 }
