@@ -21,7 +21,11 @@ const updateSearching = (req, res, db) => {
 }
 
 const findMatch = (req, res, db) => {
-    db('users').where('searchingformatch', 't').orWhereNot('socketid', null)
+    const username = req.query.username;
+    db('users').where('searchingformatch', 't').andWhereNot({
+        socketid: null,
+        username: username
+    })
     .then(user => {
         res.json(user[0]);
     })
