@@ -1,10 +1,10 @@
 const updateOnlineStatus = (req, res, db) => {
-    const username = req.query.username;
+    const { username } = req.body;
     db('users').where('username', '=', username)
     .update({
         lastonline: Date.now()
     })
-    .then(count => {
+    .then(() => {
         res.json(true);
     })
     .catch(err => res.status(400).json(err))
