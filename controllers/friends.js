@@ -67,13 +67,13 @@ const getFriendRequests = (req, res, db) => {
 
 const getFriendsOnline = (req, res, db) => {
     let friendArr = [];
-    let numOfFriendsOnline = 0;
     const username = req.query.username;
-    db('users').count('friends')
+    const curTime = Data.now();
+    db('users')
     .where('friends', 'like', `%${username}%`)
-    .whereNotNull('socketid')
-    .then(count => {
-        res.json(count);
+    .andWhere('lastonline', '<', (curTime-5000))
+    .then(users => {
+        res.json(users);
     })
     .catch(err => res.status(400).json(err))
 }
