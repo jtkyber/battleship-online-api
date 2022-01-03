@@ -9,7 +9,6 @@ const socket = require('./controllers/socket');
 const friends = require('./controllers/friends');
 const game = require('./controllers/game');
 const leaderboard = require('./controllers/leaderboard');
-const onlineStatus = require('./controllers/onlineStatus');
 
 const app = express();
 app.use(express.json());
@@ -67,7 +66,7 @@ app.put('/updateSearching', (req, res) => { game.updateSearching(req, res, db) }
 
 app.get('/findMatch', (req, res) => { game.findMatch(req, res, db) })
 
-app.put('/updateOnlineStatus', (req, res) => { onlineStatus.updateOnlineStatus(req, res, db) })
+app.put('/updateOnlineStatus', (req, res) => { friends.updateOnlineStatus(req, res, db) })
 
 app.listen(process.env.PORT || 4000, () => {
     console.log(`app is running on port ${process.env.PORT}`);
