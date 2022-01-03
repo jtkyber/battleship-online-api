@@ -66,12 +66,11 @@ const getFriendRequests = (req, res, db) => {
 }
 
 const getFriendsOnline = (req, res, db) => {
-    let friendArr = [];
     const username = req.query.username;
     const curTime = Date.now();
     db('users')
     .where('friends', 'like', `%${username}%`)
-    .andWhere('lastonline', '<', (curTime-5000))
+    .andWhere('lastonline', '>', (curTime-5000))
     .then(users => {
         res.json(users);
     })
