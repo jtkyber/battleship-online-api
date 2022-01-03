@@ -47,7 +47,7 @@ app.put('/addUserSocket', (req, res) => { socket.addUserSocket(req, res, db) })
 
 app.get('/getFriends', (req, res) => { friends.getFriends(req, res, db) })
 
-app.get('/findFriend', (req, res) => { friends.findFriend(req, res, db) })
+// app.get('/findFriend', (req, res) => { friends.findFriend(req, res, db) })
 
 app.put('/addFriend', (req, res) => { friends.addFriend(req, res, db) })
 
