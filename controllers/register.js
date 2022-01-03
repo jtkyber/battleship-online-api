@@ -10,7 +10,7 @@ const handleRegister = (req, res, db, bcrypt) => {
     })
     .then(user => {
         if (socketid.length > 0) {
-            res.json(data[0]);
+            res.json(user[0]);
         } else {
             res.json('no socketid')
         }
