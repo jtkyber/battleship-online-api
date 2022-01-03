@@ -27,7 +27,11 @@ const findMatch = (req, res, db) => {
         username: username
     })
     .then(user => {
-        res.json(user[0]);
+        if (!user) {
+            res.json(null);
+        } else {
+            res.json(user[0]);
+        }
     })
     .catch(err => res.status(400).json('Could not find match'))
 }
