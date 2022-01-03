@@ -1,24 +1,25 @@
 const getFriends = (req, res, db) => {
     const username = req.query.username;
-    db('users').where('username', '=', username)
-    .then(user => {
-        res.json(user[0].friends)
+    db('users')
+    .where('friends', 'like', `%${username}%`)
+    .then(users => {
+        res.json(users)
     })
     .catch(err => res.status(400).json('Could not find friends'))
 }
 
-const findFriend = (req, res, db) => {
-    const username = req.query.username;
-    db('users').where('username', '=', username)
-    .then(user => {
-        if (user[0].username) {
-            res.json(user[0])
-        } else {
-            throw new Error('Could not find that friend')
-        }
-    })
-    .catch(err => {console.log(err); res.status(400).json(err)})
-}
+// const findFriend = (req, res, db) => {
+//     const username = req.query.username;
+//     db('users').where('username', '=', username)
+//     .then(user => {
+//         if (user[0].username) {
+//             res.json(user[0])
+//         } else {
+//             throw new Error('Could not find that friend')
+//         }
+//     })
+//     .catch(err => {console.log(err); res.status(400).json(err)})
+// }
 
 const addFriend = (req, res, db) => {
     const { username, friendlist } = req.body;
