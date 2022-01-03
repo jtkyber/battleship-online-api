@@ -78,6 +78,14 @@ const getFriendsOnline = (req, res, db) => {
     .catch(err => res.status(400).json(err))
 }
 
+const getAllOnline = (req, res, db) => {
+    db('users').whereNotNull('socketid')
+    .then(users => {
+        res.json(users);
+    })
+    .catch(err => res.status(400).json(err))
+}
+
 module.exports = {
     getFriends,
     findFriend,
@@ -85,5 +93,6 @@ module.exports = {
     addSelfToFriend,
     updateFriendRequests,
     getFriendRequests,
-    getFriendsOnline
+    getFriendsOnline,
+    getAllOnline
 };
