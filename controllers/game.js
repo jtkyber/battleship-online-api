@@ -27,8 +27,8 @@ const findMatch = (req, res, db) => {
         username: username
     })
     .then(user => {
-        if (!user) {
-            res.json(null);
+        if (!user.length) {
+            res.json('test');
         } else {
             res.json(user[0]);
         }
