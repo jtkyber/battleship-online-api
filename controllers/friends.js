@@ -10,7 +10,7 @@ const getFriends = (req, res, db) => {
             .then(friend => {
                 friendObjects.push(friend);
             })
-            .catch(err => res.status(400).json('Could not find friends'))
+            .catch(err => res.status(400).json('Could not find friends1'))
         }
         // res.json(user)
     })
@@ -18,7 +18,7 @@ const getFriends = (req, res, db) => {
     .then(() => {
         res.json(friendObjects);
     })
-    .catch(err => res.status(400).json('Could not find friends'))
+    .catch(err => res.status(400).json('Could not find friends2'))
 }
 
 const findFriend = (req, res, db) => {
