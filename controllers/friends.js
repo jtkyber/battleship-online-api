@@ -80,14 +80,6 @@ const getFriendRequests = (req, res, db) => {
 const getFriendsOnline = (req, res, db) => {
     const username = req.query.username;
     const curTime = Date.now();
-    // db('users')
-    // .where('friends', 'like', `%${username}%`)
-    // .andWhere('lastonline', '>', (curTime-5000))
-    // .then(users => {
-    //     res.json(users);
-    // })
-    // .catch(err => res.status(400).json(err))
-
     db('users').where('username', '=', username)
     .then(user => {
         if (user[0].friends) {
