@@ -4,13 +4,14 @@ const getFriends = (req, res, db) => {
     .then(user => {
         const friendArray = user[0].friends.split(',');
         Promise.all(friendArray.map(fName => {
-            return db('users').where('username', '=', fName)
-            .then(friend => {
-                return friend[0];
-            })
-            .catch(() => {
-                res.json([]);
-            })
+            if (!user[0].friends.length) {
+                return [];
+            } else {
+                return db('users').where('username', '=', fName)
+                .then(friend => {
+                    return friend[0];
+                })
+            }
         })).then(allFriends => {
             res.json(allFriends);
         })
