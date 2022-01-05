@@ -3,14 +3,14 @@ const getFriends = (req, res, db) => {
     db('users').where('username', '=', username)
     .then(user => {
         const friendArray = user[0].friends.split(',');
-        const friendObjects = [];
-        for (let fName of friendArray) {
-            db('users').where('username', '=', fName)
+        Promise.all(friendArray.map(fName => {
+            return db('users').where('username', '=', fName)
             .then(friend => {
-                friendObjects.push(friend[0])
+                return friend[0];
             })
-        }
-        res.json(friendObjects);
+        })).then(res =>{
+            res.json(res);
+        })
     })
     .catch(() => res.status(400).json('Could not find friends'))
 }
