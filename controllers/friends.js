@@ -1,9 +1,9 @@
 const getFriends = (req, res, db) => {
     const username = req.query.username;
-    const friendObjects = [];
     db('users').where('username', '=', username)
     .then(user => {
         const friendArray = user[0].friends.split(',');
+        const friendObjects = [];
         for (let fName of friendArray) {
             db('users').where('username', '=', fName)
             .then(friend => {
