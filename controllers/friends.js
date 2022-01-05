@@ -7,7 +7,7 @@ const getFriends = (req, res, db) => {
         const friendObjects = friendArray.map(fName => {
             db('users').where('username', '=', fName)
             .then(friend => {
-                friendObjects.push(friend[0]);
+                friendObjects.push(friend);
             })
         })
         res.json(friendArray);
