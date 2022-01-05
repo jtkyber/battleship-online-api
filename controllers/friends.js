@@ -2,6 +2,9 @@ const getFriends = (req, res, db) => {
     const username = req.query.username;
     db('users').where('username', '=', username)
     .then(user => {
+        if (!user?.friends?.length) {
+            res.json([]);
+        }
         const friendArray = user[0].friends.split(',');
         Promise.all(friendArray.map(fName => {
             return db('users').where('username', '=', fName)
