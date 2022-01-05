@@ -2,15 +2,19 @@ const getFriends = (req, res, db) => {
     const username = req.query.username;
     db('users').where('username', '=', username)
     .then(user => {
-        const friendArray = user[0].friends.split(',');
-        Promise.all(friendArray.map(fName => {
-            return db('users').where('username', '=', fName)
-            .then(friend => {
-                return friend[0];
+        if (user[0].friends) {
+            const friendArray = user[0].friends.split(',');
+            Promise.all(friendArray.map(fName => {
+                return db('users').where('username', '=', fName)
+                .then(friend => {
+                    return friend[0];
+                })
+            })).then(allFriends => {
+                res.json(allFriends);
             })
-        })).then(allFriends => {
-            res.json(allFriends);
-        })
+        } else {
+            res.json([]);
+        }
     })
     .catch(() => res.status(400).json('Could not find friends'))
 }
