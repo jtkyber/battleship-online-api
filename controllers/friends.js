@@ -4,11 +4,11 @@ const getFriends = (req, res, db) => {
     db('users').where('username', '=', username)
     // .where('friends', 'like', `%${username}%`)
     .then(user => {
-        const friendArray = user.friends.split(',');
+        const friendArray = user[0].friends.split(',');
         for (let fName of friendArray) {
             db('users').where('username', '=', fName)
             .then(friend => {
-                friendObjects.push(friend);
+                friendObjects.push(friend[0]);
             })
             .catch(err => res.status(400).json('Could not find friends1'))
         }
