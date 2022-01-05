@@ -9,7 +9,7 @@ const getFriends = (req, res, db) => {
                 friendObjects.push(friend);
             })
         })
-        res.json(friendArray);
+        res.json(friendObjects);
     })
     .catch(err => res.status(400).json('Could not find friends'))
 }
