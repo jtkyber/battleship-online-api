@@ -6,10 +6,11 @@ const getFriends = (req, res, db) => {
         const friendObjects = friendArray.map(fName => {
             db('users').where('username', '=', fName)
             .then(friend => {
-                friendObjects.push(friend[0]);
+                res.json(friend[0])
+                // friendObjects.push(friend[0]);
             })
         })
-        res.json(user[0]);
+        // res.json(friendObjects);
     })
     .catch(() => res.status(400).json('Could not find friends'))
 }
