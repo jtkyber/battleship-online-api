@@ -8,8 +8,8 @@ const getFriends = (req, res, db) => {
             .then(friend => {
                 return friend[0];
             })
-        })).then(res =>{
-            res.json(res);
+        })).then(allFriends => {
+            res.json(allFriends);
         })
     })
     .catch(() => res.status(400).json('Could not find friends'))
