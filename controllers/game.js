@@ -22,7 +22,8 @@ const updateSearching = (req, res, db) => {
 
 const findMatch = (req, res, db) => {
     const username = req.query.username;
-    db('users').where('searchingformatch', 't').andWhereNot({
+    const curTime = Date.now();
+    db('users').where('searchingformatch', 't').andWhere('lastonline', '>', (curTime-5000)).andWhereNot({
         socketid: null,
         username: username
     })
