@@ -1,22 +1,22 @@
 const getFriends = (req, res, db) => {
     const username = req.query.username;
-    // const friendObjects = [];
+    const friendObjects = [];
     db('users').where('username', '=', username)
     // .where('friends', 'like', `%${username}%`)
     .then(user => {
         const friendArray = user[0].friends.split(',');
-        const friendObjects = friendArray.map(fName => {
+        friendObjects = friendArray.map(fName => {
             db('users').where('username', '=', fName)
             .then(friend => {
-                friendObjects.push(friend[0])
+                return friend[0]
             })
             .catch(err => res.status(400).json('Could not find friends1'))
         })
         // res.json(user)
     })
     // .catch(err => res.status(400).json('Could not find friends'))
-    .then(friendObjects => {
-        res.json('test')
+    .then(() => {
+        res.json(friendObjects)
     })
     .catch(err => res.status(400).json('Could not find friends2'))
 }
