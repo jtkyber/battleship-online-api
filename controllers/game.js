@@ -38,7 +38,7 @@ const findMatch = (req, res, db) => {
 }
 
 const setInGame = (req, res, db) => {
-    const { isInGame, username } = req.body;
+    const { username, isInGame } = req.body;
     db('users').where('username', '=', username)
     .update({
         ingame: isInGame
