@@ -2,7 +2,7 @@ const updateWins = (req, res, db) => {
     const { username } = req.body;
     db('users').where('username', '=', username)
     .increment('wins', 1)
-    .then(user => {
+    .then(() => {
         res.json(true);
     })
     .catch(err => res.status(400).json('Could not increment wins'))
@@ -14,7 +14,7 @@ const updateSearching = (req, res, db) => {
     .update({
         searchingformatch: search
     })
-    .then(user => {
+    .then(() => {
         res.json(true);
     })
     .catch(err => res.status(400).json('Searching failed'))
@@ -35,6 +35,18 @@ const findMatch = (req, res, db) => {
         }
     })
     .catch(err => res.status(400).json('Could not find match'))
+}
+
+const setInGame = (req, res, db) => {
+    const { isInGame } = req.body;
+    db('users').where('username', '=', username)
+    .update({
+        ingame: isInGame
+    })
+    .then(() => {
+        res.json(true);
+    })
+    .catch(() => res.status(400).json('Could not update inGame status'))
 }
 
 module.exports = {
