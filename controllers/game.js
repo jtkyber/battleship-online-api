@@ -52,5 +52,6 @@ const setInGame = (req, res, db) => {
 module.exports = {
     updateWins,
     updateSearching,
-    findMatch
+    findMatch,
+    setInGame
 }
