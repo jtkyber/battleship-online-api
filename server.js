@@ -68,6 +68,8 @@ app.get('/findMatch', (req, res) => { game.findMatch(req, res, db) })
 
 app.put('/updateOnlineStatus', (req, res) => { friends.updateOnlineStatus(req, res, db) })
 
+app.put('/setInGame', (req, res) => { game.setInGame(req, res, db) })
+
 app.listen(process.env.PORT || 4000, () => {
     console.log(`app is running on port ${process.env.PORT}`);
 })
