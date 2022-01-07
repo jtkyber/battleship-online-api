@@ -49,9 +49,32 @@ const setInGame = (req, res, db) => {
     .catch(() => res.status(400).json('Could not update inGame status'))
 }
 
+const addGuestUser = (req, res, db) => {
+    const { socketid } = req.body;
+    const guestName = 'Guest' + Math.floor(Math.random() * 10000000);
+    const curTime = Date.now();
+    db('users')
+    .insert({
+        username: guestName,
+        hash: "guest",
+        socketid: socketid,
+        wins: 0,
+        friends: null,
+        friendrequests: null,
+        searchingformatch: true,
+        lastonline: curTime,
+        ingame: false
+    })
+    .then(() => {
+        res.json(user[0]);
+    })
+    .catch(() => res.status(400).json('Could not update inGame status'))
+}
+
 module.exports = {
     updateWins,
     updateSearching,
     findMatch,
-    setInGame
+    setInGame,
+    addGuestUser
 }

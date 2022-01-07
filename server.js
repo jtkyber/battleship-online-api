@@ -70,6 +70,8 @@ app.put('/updateOnlineStatus', (req, res) => { friends.updateOnlineStatus(req, r
 
 app.put('/setInGame', (req, res) => { game.setInGame(req, res, db) })
 
+app.post('/addGuestUser', (req, res) => { game.addGuestUser(req, res, db) })
+
 app.listen(process.env.PORT || 4000, () => {
     console.log(`app is running on port ${process.env.PORT}`);
 })
