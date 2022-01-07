@@ -61,7 +61,7 @@ const addGuestUser = (req, res, db) => {
         wins: 0,
         friends: null,
         friendrequests: null,
-        searchingformatch: true,
+        searchingformatch: false,
         lastonline: curTime,
         ingame: false
     })
