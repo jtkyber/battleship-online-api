@@ -90,12 +90,26 @@ const guestCleanup = (req, res, db) => {
     const curTime = Date.now();
     db('users')
     .where('hash', '=', 'guest')
-    .andWhere('lastonline', '<', (curTime-5000))
+    .andWhere('lastonline', '<=', (curTime-5000))
     .del()
     .then(() => {
         res.json(true);
     })
     .catch(() => res.status(400).json('Could not remove users'))
+}
+
+const checkIfOppOnline = (req, res, db) => {
+    const username = req.query.username;
+    const curTime = Date.now();
+    db('users').where('username', '=', username)
+    .then(user => {
+        if (user.lastonline > (curTime-5000)) {
+            res.json(true);
+        } else {
+            res.json(false);
+        }
+    })
+    .catch(() => res.status(400).json('Error'))
 }
 
 module.exports = {
@@ -105,5 +119,6 @@ module.exports = {
     setInGame,
     addGuestUser,
     removeGuestUser,
-    guestCleanup
+    guestCleanup,
+    checkIfOppOnline
 }
