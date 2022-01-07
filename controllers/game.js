@@ -90,8 +90,7 @@ const guestCleanup = (req, res, db) => {
     const curTime = Date.now();
     db('users')
     .where('hash', '=', 'guest')
-    .andWhere('lastonline', '>', (curTime-5000))
-    .returning('*')
+    .andWhere('lastonline', '<', (curTime-5000))
     .del()
     .then(users => {
         res.json(users);
