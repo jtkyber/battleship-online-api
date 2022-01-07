@@ -72,10 +72,22 @@ const addGuestUser = (req, res, db) => {
     .catch(() => res.status(400).json('Could not add guest user'))
 }
 
+const removeGuestUser = (req, res, db) => {
+    const { username } = req.body;
+    db('users')
+    .where('username', '=', username)
+    .del()
+    .then(() => {
+        res.json(true);
+    })
+    .catch(() => res.status(400).json('Could not remove guest user'))
+}
+
 module.exports = {
     updateWins,
     updateSearching,
     findMatch,
     setInGame,
-    addGuestUser
+    addGuestUser,
+    removeGuestUser
 }
