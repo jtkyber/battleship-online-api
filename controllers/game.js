@@ -103,11 +103,12 @@ const checkIfOppOnline = (req, res, db) => {
     const curTime = Date.now();
     db('users').where('username', '=', username)
     .then(user => {
-        if (user.lastonline > (curTime-5000)) {
-            res.json(true);
-        } else {
-            res.json(false);
-        }
+        res.json(user[0])
+        // if (user.lastonline > (curTime-5000)) {
+        //     res.json(true);
+        // } else {
+        //     res.json(false);
+        // }
     })
     .catch(() => res.status(400).json('Error'))
 }
