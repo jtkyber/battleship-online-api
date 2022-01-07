@@ -65,8 +65,9 @@ const addGuestUser = (req, res, db) => {
         lastonline: curTime,
         ingame: false
     })
+    .where('username', '=', guestName)
     .then(user => {
-        res.json(user);
+        res.json(user[0]);
     })
     .catch(() => res.status(400).json('Could not add guest user'))
 }
