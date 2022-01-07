@@ -23,7 +23,10 @@ const updateSearching = (req, res, db) => {
 const findMatch = (req, res, db) => {
     const username = req.query.username;
     const curTime = Date.now();
-    db('users').where('searchingformatch', 't').andWhere('lastonline', '>', (curTime-5000)).andWhere('ingame', 'f').andWhereNot({
+    db('users').where('searchingformatch', 't')
+    .andWhere('lastonline', '>', (curTime-5000))
+    .andWhere('ingame', 'f')
+    .andWhereNot({
         socketid: null,
         username: username
     })
@@ -86,6 +89,7 @@ const removeGuestUser = (req, res, db) => {
 const guestCleanup = (req, res, db) => {
     db('users')
     .where('hash', '=', 'guest')
+    .andWhere('lastonline', '>', (curTime-5000))
     .del()
     .then(() => {
         res.json(true);
