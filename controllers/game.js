@@ -56,7 +56,7 @@ const addGuestUser = (req, res, db) => {
     db('users')
     .insert({
         username: guestName,
-        hash: "guest",
+        hash: 'guest',
         socketid: socketid,
         wins: 0,
         friends: null,
@@ -83,11 +83,22 @@ const removeGuestUser = (req, res, db) => {
     .catch(() => res.status(400).json('Could not remove guest user'))
 }
 
+const guestCleanup = (req, res, db) => {
+    db('users')
+    .where('hash', '=', 'guest')
+    .del()
+    .then(() => {
+        res.json(true);
+    })
+    .catch(() => res.status(400).json('Could not remove users'))
+}
+
 module.exports = {
     updateWins,
     updateSearching,
     findMatch,
     setInGame,
     addGuestUser,
-    removeGuestUser
+    removeGuestUser,
+    guestCleanup
 }
