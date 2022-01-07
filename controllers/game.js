@@ -54,7 +54,7 @@ const setInGame = (req, res, db) => {
 
 const addGuestUser = (req, res, db) => {
     const { socketid } = req.body;
-    const guestName = 'Guest' + Math.floor(Math.random() * 10000000);
+    const guestName = 'Guest' + Math.floor(Math.random() * 1000000);
     const curTime = Date.now();
     db('users')
     .insert({
