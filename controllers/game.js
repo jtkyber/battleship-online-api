@@ -91,10 +91,9 @@ const guestCleanup = (req, res, db) => {
     db('users')
     .where('hash', '=', 'guest')
     .andWhere('lastonline', '<', (curTime-5000))
-    .returning('*')
     .del()
-    .then(users => {
-        res.json(users);
+    .then(() => {
+        res.json(true);
     })
     .catch(() => res.status(400).json('Could not remove users'))
 }
