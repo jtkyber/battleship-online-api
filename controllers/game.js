@@ -65,7 +65,7 @@ const addGuestUser = (req, res, db) => {
         lastonline: curTime,
         ingame: false
     })
-    .where('username', '=', guestName)
+    .returning('*')
     .then(user => {
         res.json(user[0]);
     })
