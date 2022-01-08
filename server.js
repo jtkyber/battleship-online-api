@@ -19,7 +19,7 @@ app.use(cors());
 //   connection: {
 //     host : 'localhost',
 //     user : 'postgres',
-//     password : 'potato16',
+//     password : '',
 //     database : 'battleship'
 //   }
 // });
@@ -81,3 +81,4 @@ app.get('/checkIfOppOnline', (req, res) => { game.checkIfOppOnline(req, res, db)
 app.listen(process.env.PORT || 4000, () => {
     console.log(`app is running on port ${process.env.PORT}`);
 })
+ 
