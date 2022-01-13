@@ -92,7 +92,7 @@ const getFriendsOnline = (req, res, db) => {
             })).then(allFriends => {
                 db('users')
                 .whereIn('username', allFriends)
-                .andWhere('lastonline', '>', (curTime-5000))
+                .andWhere('lastonline', '>', (curTime-3000))
                 .then(users => {
                     res.json(users);
                 })

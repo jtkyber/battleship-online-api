@@ -24,7 +24,7 @@ const findMatch = (req, res, db) => {
     const username = req.query.username;
     const curTime = Date.now();
     db('users').where('searchingformatch', 't')
-    .andWhere('lastonline', '>', (curTime-5000))
+    .andWhere('lastonline', '>', (curTime-3000))
     .andWhere('ingame', 'f')
     .andWhereNot({
         socketid: null,
@@ -90,7 +90,7 @@ const guestCleanup = (req, res, db) => {
     const curTime = Date.now();
     db('users')
     .where('hash', '=', 'guest')
-    .andWhere('lastonline', '<=', (curTime-5000))
+    .andWhere('lastonline', '<=', (curTime-3000))
     .del()
     .then(() => {
         res.json(true);
@@ -103,7 +103,7 @@ const checkIfOppOnline = (req, res, db) => {
     const curTime = Date.now();
     db('users').where('username', '=', username)
     .then(user => {
-        if (user[0].lastonline > (curTime-5000)) {
+        if (user[0].lastonline > (curTime-3000)) {
             res.json(true);
         } else {
             res.json(false);
