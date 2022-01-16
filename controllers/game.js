@@ -29,9 +29,9 @@ const findMatch = (req, res, db) => {
     .andWhere('ingame', 'f')
     .andWhereNot({
         socketid: null,
-        socketid: socketid,
         username: username
     })
+    .andWhereNot('socketid', '=', socketid)
     .then(user => {
         if (!user.length) {
             res.json(null);
