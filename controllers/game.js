@@ -26,10 +26,11 @@ const findMatch = (req, res, db) => {
     db('users').where('searchingformatch', 't')
     .andWhere('lastonline', '>', (curTime-3000))
     .andWhere('ingame', 'f')
+    .andWhere('socketid', '!=', user.socketid)
     .andWhereNot({
         socketid: null,
         username: user.username
-    }).andWhereNot('socketid', '=', user.socketid)
+    })
     .then(data => {
         if (!data.length) {
             res.json(null);
