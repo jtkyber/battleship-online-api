@@ -21,20 +21,21 @@ const updateSearching = (req, res, db) => {
 }
 
 const findMatch = (req, res, db) => {
-    const username = req.query.username;
+    const user = req.query.user;
     const curTime = Date.now();
     db('users').where('searchingformatch', 't')
     .andWhere('lastonline', '>', (curTime-3000))
     .andWhere('ingame', 'f')
     .andWhereNot({
         socketid: null,
-        username: username
+        socketid: user.socketid,
+        username: user.username
     })
-    .then(user => {
-        if (!user.length) {
+    .then(data => {
+        if (!data.length) {
             res.json(null);
         } else {
-            res.json(user[0]);
+            res.json(data[0]);
         }
     })
     .catch(err => res.status(400).json('Could not find match'))
