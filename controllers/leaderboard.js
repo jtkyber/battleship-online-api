@@ -1,6 +1,7 @@
 const getTopFive = (req, res, db) => {
     // const userNum = req.query.userNum;
-    db('users').orderBy('wins', 'desc')
+    db('users').returning('username','wins')
+    .orderBy('wins', 'desc')
     .limit(5)
     .then(data => {
         res.json(data);
