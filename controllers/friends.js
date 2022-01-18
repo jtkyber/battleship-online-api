@@ -9,8 +9,9 @@ const getFriends = (req, res, db) => {
                 .then(friend => {
                     return friend[0];
                 })
-            })).then(allFriends => {
-                res.json(allFriends);
+            })).select('username','socketid','ingame','lastonline')
+            .then(data => {
+                res.json(data);
             })
         } else {
             res.json([]);
