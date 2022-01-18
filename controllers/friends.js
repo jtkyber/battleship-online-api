@@ -6,11 +6,11 @@ const getFriends = (req, res, db) => {
             const friendArray = user[0].friends.split(',');
             Promise.all(friendArray.map(fName => {
                 return db('users').where('username', '=', fName)
+                .select('username','socketid','ingame','lastonline')
                 .then(friend => {
                     return friend[0];
                 })
-            })).select('username','socketid','ingame','lastonline')
-            .then(data => {
+            })).then(data => {
                 res.json(data);
             })
         } else {
