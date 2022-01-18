@@ -22,7 +22,8 @@ const getFriends = (req, res, db) => {
 
 const findFriend = (req, res, db) => {
     const username = req.query.username;
-    db('users').where('username', '=', username)
+    db('users').select('username','socketid','ingame','lastonline')
+    .where('username', '=', username)
     .then(user => {
         if (user[0].username) {
             res.json(user[0])
