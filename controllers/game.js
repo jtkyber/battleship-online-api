@@ -34,7 +34,7 @@ const findMatch = (req, res, db) => {
     .andWhereNot('socketid', '=', socketid)
     .select('username','socketid')
     .then(user => {
-        if (!user.length) {
+        if (!user[0].username.length) {
             res.json(null);
         } else {
             res.json(user[0]);
