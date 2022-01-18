@@ -32,6 +32,7 @@ const findMatch = (req, res, db) => {
         username: username
     })
     .andWhereNot('socketid', '=', socketid)
+    .select('username','socketid')
     .then(user => {
         if (!user.length) {
             res.json(null);
@@ -39,7 +40,7 @@ const findMatch = (req, res, db) => {
             res.json(user[0]);
         }
     })
-    .catch(err => res.status(400).json('Could not find match'))
+    .catch(() => res.status(400).json('Could not find match'))
 }
 
 const setInGame = (req, res, db) => {
