@@ -93,6 +93,7 @@ const getFriendsOnline = (req, res, db) => {
                 db('users')
                 .whereIn('username', allFriends)
                 .andWhere('lastonline', '>', (curTime-3000))
+                .select('username','socketid','ingame')
                 .then(users => {
                     res.json(users);
                 })
