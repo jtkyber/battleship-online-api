@@ -22,7 +22,7 @@ const getFriends = (req, res, db) => {
 
 const findFriend = (req, res, db) => {
     const username = req.query.username;
-    db('users').select('username','socketid','ingame','lastonline')
+    db('users').select('username','socketid','ingame','lastonline','friends','friendrequests')
     .where('username', '=', username)
     .then(user => {
         if (user[0].username) {
