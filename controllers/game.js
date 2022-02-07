@@ -115,6 +115,20 @@ const checkIfOppOnline = (req, res, db) => {
     .catch(() => res.status(400).json('Error'))
 }
 
+const checkIfOppInGame = (req, res, db) => {
+    const username = req.query.username;
+    const curTime = Date.now();
+    db('users').where('username', '=', username)
+    .then(user => {
+        if ((user[0].lastonline > (curTime-3000)) && (user[0].ingame == true)) {
+            res.json(true);
+        } else {
+            res.json(false);
+        }
+    })
+    .catch(() => res.status(400).json('Error'))
+}
+
 module.exports = {
     updateWins,
     updateSearching,
@@ -123,5 +137,6 @@ module.exports = {
     addGuestUser,
     removeGuestUser,
     guestCleanup,
-    checkIfOppOnline
+    checkIfOppOnline,
+    checkIfOppInGame
 }

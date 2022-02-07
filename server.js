@@ -78,6 +78,8 @@ app.delete('/guestCleanup', (req, res) => { game.guestCleanup(req, res, db) })
 
 app.get('/checkIfOppOnline', (req, res) => { game.checkIfOppOnline(req, res, db) })
 
+app.get('/checkIfOppInGame', (req, res) => { game.checkIfOppInGame(req, res, db) })
+
 app.listen(process.env.PORT || 4000, () => {
     console.log(`app is running on port ${process.env.PORT}`);
 })
