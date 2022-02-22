@@ -56,7 +56,7 @@ app.put('/updateFriendRequests', (req, res) => { friends.updateFriendRequests(re
 
 app.get('/getFriendRequests', (req, res) => { friends.getFriendRequests(req, res, db) })
 
-app.put('/updateWins', (req, res) => { game.updateWins(req, res, db) })
+app.put('/updateScore', (req, res) => { game.updateScore(req, res, db) })
 
 app.get('/getFriendsOnline', (req, res) => { friends.getFriendsOnline(req, res, db) })
 

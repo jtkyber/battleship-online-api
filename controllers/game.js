@@ -1,4 +1,4 @@
-const updateWins = (req, res, db) => {
+const updateScore = (req, res, db) => {
     const { username, scoreIncrement } = req.body;
     db('users').where('username', '=', username)
     .increment('score', scoreIncrement)
@@ -130,7 +130,7 @@ const checkIfOppInGame = (req, res, db) => {
 }
 
 module.exports = {
-    updateWins,
+    updateScore,
     updateSearching,
     findMatch,
     setInGame,
