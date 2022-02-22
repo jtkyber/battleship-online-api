@@ -1,11 +1,11 @@
 const updateWins = (req, res, db) => {
-    const { username } = req.body;
+    const { username, scoreIncrement } = req.body;
     db('users').where('username', '=', username)
-    .increment('wins', 1)
+    .increment('score', scoreIncrement)
     .then(() => {
         res.json(true);
     })
-    .catch(err => res.status(400).json('Could not increment wins'))
+    .catch(() => res.status(400).json('Could not increment score'))
 }
 
 const updateSearching = (req, res, db) => {
@@ -64,7 +64,7 @@ const addGuestUser = (req, res, db) => {
         username: guestName,
         hash: 'guest',
         socketid: socketid,
-        wins: 0,
+        score: 0,
         friends: null,
         friendrequests: null,
         searchingformatch: true,
