@@ -1,6 +1,7 @@
 const updateScore = (req, res, db) => {
     const { username, scoreIncrement } = req.body;
     db('users').where('username', '=', username)
+    .returning('*')
     .increment('score', scoreIncrement)
     .then(user => {
         res.json(user[0]);
