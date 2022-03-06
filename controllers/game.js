@@ -2,8 +2,8 @@ const updateScore = (req, res, db) => {
     const { username, scoreIncrement } = req.body;
     db('users').where('username', '=', username)
     .increment('score', scoreIncrement)
-    .then(() => {
-        res.json(true);
+    .then(user => {
+        res.json(user[0].score);
     })
     .catch(() => res.status(400).json('Could not increment score'))
 }
@@ -17,7 +17,7 @@ const updateSearching = (req, res, db) => {
     .then(() => {
         res.json(true);
     })
-    .catch(err => res.status(400).json('Searching failed'))
+    .catch(() => res.status(400).json('Searching failed'))
 }
 
 const findMatch = (req, res, db) => {
