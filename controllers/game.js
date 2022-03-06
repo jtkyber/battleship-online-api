@@ -3,7 +3,7 @@ const updateScore = (req, res, db) => {
     db('users').where('username', '=', username)
     .increment('score', scoreIncrement)
     .then(user => {
-        res.json(user[0].score);
+        res.json(user[0]);
     })
     .catch(() => res.status(400).json('Could not increment score'))
 }
