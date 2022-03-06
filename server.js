@@ -58,6 +58,8 @@ app.get('/getFriendRequests', (req, res) => { friends.getFriendRequests(req, res
 
 app.put('/updateScore', (req, res) => { game.updateScore(req, res, db) })
 
+app.put('/getScore', (req, res) => { game.getScore(req, res, db) })
+
 app.get('/getFriendsOnline', (req, res) => { friends.getFriendsOnline(req, res, db) })
 
 app.get('/getTopFive', (req, res) => { leaderboard.getTopFive(req, res, db) })
