@@ -2,19 +2,10 @@ const updateScore = (req, res, db) => {
     const { username, scoreIncrement } = req.body;
     db('users').where('username', '=', username)
     .increment('score', scoreIncrement)
-    .then((user) => {
-        res.json(user.score);
+    .then(user => {
+        res.json(user[0].score);
     })
     .catch(() => res.status(400).json('Could not increment score'))
-}
-
-const getScore = () => {
-    const username = req.query.username;
-    db('users').where('username', '=', username)
-    .then((user) => {
-        res.json(user.score);
-    })
-    .catch(() => res.status(400).json('Could not get score'))
 }
 
 const updateSearching = (req, res, db) => {
@@ -140,7 +131,6 @@ const checkIfOppInGame = (req, res, db) => {
 
 module.exports = {
     updateScore,
-    getScore,
     updateSearching,
     findMatch,
     setInGame,
