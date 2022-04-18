@@ -2,7 +2,7 @@ const postEmail = (req, res, db) => {
     const { email } = req.body;
     db('unity_email_signup')
     .insert ({
-        email: email
+        email: 'test'
     })
     .then(email => {
         res.json(email[0])
