@@ -9,6 +9,7 @@ const socket = require('./controllers/socket');
 const friends = require('./controllers/friends');
 const game = require('./controllers/game');
 const leaderboard = require('./controllers/leaderboard');
+const unity = require('./controllers/unity');
 
 const app = express();
 app.use(express.json());
@@ -79,6 +80,13 @@ app.delete('/guestCleanup', (req, res) => { game.guestCleanup(req, res, db) })
 app.get('/checkIfOppOnline', (req, res) => { game.checkIfOppOnline(req, res, db) })
 
 app.get('/checkIfOppInGame', (req, res) => { game.checkIfOppInGame(req, res, db) })
+
+
+
+
+// Josh's Website
+
+app.post('/postEmail', (req, res) => { unity.postEmail(req, res, db) })
 
 app.listen(process.env.PORT || 4000, () => {
     console.log(`app is running on port ${process.env.PORT}`);
