@@ -5,7 +5,7 @@ const postEmail = (req, res, db) => {
         email: 'test'
     })
     .then(email => {
-        res.json(email[0])
+        res.json(email)
     })
     .catch(() => res.status(400).json('unable to post email'))
 }
