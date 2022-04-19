@@ -4,21 +4,22 @@ const postEmail = (req, res, db) => {
     db('unity_email_signup')
     .where({email: email})
     .then(emails => {
-        if (true) {
-            res.json(emails.length);
-            // res.json('The email you entered is already registered');
-            return;
-        }
+        if (emails.length) {
+            res.json('The email you entered is already registered');
+        } else addEmail();
     })
 
-    db('unity_email_signup')
-    .insert({
-        email: email
-    })
-    .then(() => {
-        res.json(true)
-    })
-    .catch(() => res.status(400).json('unable to post email'))
+    const addEmail = () => {
+        db('unity_email_signup')
+        .insert({
+            email: email
+        })
+        .then(() => {
+            res.json(true)
+        })
+        .catch(() => res.status(400).json('unable to post email'))
+    }
+
 }
 
 module.exports = {
