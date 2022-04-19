@@ -22,6 +22,15 @@ const postEmail = (req, res, db) => {
 
 }
 
+const getEmailCount = (req, res, db) => {
+    db('unity_email_signup')
+    .then(data => {
+        res.json(data.length)
+    })
+    .catch(() => res.status(400).json('Could not retrieve email count'))
+}
+
 module.exports = {
-    postEmail
+    postEmail,
+    getEmailCount
 };
