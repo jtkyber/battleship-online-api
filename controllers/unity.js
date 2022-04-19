@@ -5,7 +5,7 @@ const postEmail = (req, res, db) => {
     .where({email: email})
     .then(emails => {
         if (true) {
-            res.json(emails);
+            res.json(emails.length);
             // res.json('The email you entered is already registered');
             return;
         }
