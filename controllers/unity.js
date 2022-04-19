@@ -9,6 +9,8 @@ const postEmail = (req, res, db) => {
             return;
         }
     })
+
+    db('unity_email_signup')
     .insert({
         email: email
     })
