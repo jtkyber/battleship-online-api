@@ -2,7 +2,7 @@ const postEmail = (req, res, db) => {
     const { email } = req.body;
 
     db('unity_email_signup')
-    .where('email', email)
+    .where({email: email})
     .then(emails => {
         if (emails.length > 0) {
             res.json('The email you entered is already registered');
