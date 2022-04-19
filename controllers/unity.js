@@ -4,8 +4,8 @@ const postEmail = (req, res, db) => {
     .insert ({
         email: 'test'
     })
-    .then(email => {
-        res.json(email)
+    .then(data => {
+        res.json(data)
     })
     .catch(() => res.status(400).json('unable to post email'))
 }
