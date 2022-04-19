@@ -1,5 +1,6 @@
 const postEmail = (req, res, db) => {
     const { email } = req.body;
+    console.log(email)
     db('unity_email_signup').select('email')
     .insert ({
         email: email
