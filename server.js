@@ -13,7 +13,9 @@ const unity = require('./controllers/unity');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors( {
+  origin: '*'
+}));
 
 // const db = knex({
 //   client: 'pg',
