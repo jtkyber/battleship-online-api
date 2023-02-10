@@ -12,6 +12,7 @@ const leaderboard = require('./controllers/leaderboard');
 const unity = require('./controllers/unity');
 
 const app = express();
+
 app.use(express.json());
 app.use(cors( {
   origin: '*'
@@ -95,7 +96,3 @@ app.get('/getEmailCount', (req, res) => { unity.getEmailCount(req, res, db) })
 app.listen(process.env.PORT || 4000, () => {
     console.log(`app is running on port ${process.env.PORT || 4000}`);
 })
- 
-module.exports = {
-  app
-}
