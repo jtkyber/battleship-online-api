@@ -1,6 +1,6 @@
 const handleLogin = (req, res, db, bcrypt) => {
+    res.json(req.body)
     const { username, password, socketid } = req.body;
-    res.end(req.body)
     db('users').where('username', '=', username)
     .returning('*')
     .then(user => {
