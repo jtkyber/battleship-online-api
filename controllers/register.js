@@ -15,7 +15,7 @@ const handleRegister = (req, res, db, bcrypt) => {
             res.json('no socketid')
         }
     })
-    .catch((err) => res.status(400).json(err, 'unable to register'))
+    .catch((err) => res.status(400).json('unable to register'))
 }
 
 module.exports = {

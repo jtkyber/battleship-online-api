@@ -2,6 +2,8 @@ const express = require('express');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 const knex = require('knex');
+const postgres = require('postgres');
+require('dotenv').config({ path: '.env' });
 
 const register = require('./controllers/register');
 const login = require('./controllers/login');
@@ -18,27 +20,20 @@ app.use(cors( {
   origin: '*'
 }));
 
-// const db = knex({
-//   client: 'pg',
-//   connection: {
-//     host : 'localhost',
-//     user : 'postgres',
-//     password : '',
-//     database : 'battleship'
-//   }
-// });
+const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
+const connectionString = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?options=project%3D${ENDPOINT_ID}`;
 
 const db = knex({
   client: 'pg',
   connection: {
-    connectionString : process.env.DATABASE_URL,
+    connectionString : connectionString,
     ssl: {
         rejectUnauthorized: false
       }
   }
 });
 
-app.get('/', (req, res) => { res.send('it is working') })
+app.get('/', (req, res) => { res.send(`working`) })
 
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
 
