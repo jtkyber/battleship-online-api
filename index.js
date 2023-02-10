@@ -2,7 +2,6 @@ const express = require('express');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 const knex = require('knex');
-const postgres = require('postgres');
 require('dotenv').config({ path: '.env' });
 
 const register = require('./controllers/register');
