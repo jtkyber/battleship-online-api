@@ -25,14 +25,14 @@ const connectionString = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATAB
 const db = knex({
   client: 'pg',
   connection: {
-    connectionString : connectionString,
+    connectionString : process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
       }
   }
 });
 
-app.get('/', (req, res) => { res.send(`working`) })
+app.get('/', (req, res) => { res.send(process.env.DATABASE_URL) })
 
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
 
