@@ -32,7 +32,7 @@ const db = knex({
   }
 });
 
-app.get('/', (req, res) => { res.send(process.env.DATABASE_URL) })
+app.get('/', (req, res) => { res.json(process.env.DATABASE_URL) })
 
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
 
