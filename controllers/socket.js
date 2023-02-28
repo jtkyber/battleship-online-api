@@ -22,7 +22,7 @@ const addUserSocket = (req, res, db) => {
     .catch(err => res.status(400).json('Error removing socket id'))
 }
 
-module.exports = {
+export {
     removeUserSocket,
     addUserSocket
 };

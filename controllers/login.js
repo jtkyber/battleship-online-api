@@ -1,22 +1,21 @@
 const handleLogin = (req, res, db, bcrypt) => {
-    const { username, password, socketid } = req.body;
+    const { username, password } = req.body;
     db('users').where('username', '=', username)
     .returning('*')
     .then(user => {
-        console.log(user)
         const isValid = bcrypt.compareSync(password, user[0].hash);
         if (isValid) {
             db('users').where('username', '=', username)
             .returning('*')
-            .update({
-                socketid: socketid
-            })
+            // .update({
+            //     socketid: socketid
+            // })
             .then(data => {
-                if (socketid.length > 0) {
+                // if (socketid.length > 0) {
                     res.json(data[0])
-                } else {
-                    res.json('no socketid')
-                }
+                // } else {
+                    // res.json('no socketid')
+                // }
             })
             .catch(err => res.status(400).json('Unable to get user'))
         } else {
@@ -25,6 +24,6 @@ const handleLogin = (req, res, db, bcrypt) => {
     })
     .catch(err => res.status(400).json(err))
 }
-module.exports = {
+export {
     handleLogin
 };

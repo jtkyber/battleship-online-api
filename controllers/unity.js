@@ -30,7 +30,7 @@ const getEmailCount = (req, res, db) => {
     .catch(() => res.status(400).json('Could not retrieve email count'))
 }
 
-module.exports = {
+export {
     postEmail,
     getEmailCount
 };

@@ -119,7 +119,7 @@ const updateOnlineStatus = (req, res, db) => {
     .catch(err => res.status(400).json(err))
 }
 
-module.exports = {
+export {
     getFriends,
     findFriend,
     addFriend,

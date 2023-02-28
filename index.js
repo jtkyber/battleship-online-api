@@ -1,16 +1,18 @@
-const express = require('express');
-const bcrypt = require('bcrypt-nodejs');
-const cors = require('cors');
-const knex = require('knex');
-require('dotenv').config({ path: '.env' });
+import express from 'express';
+import bcrypt from 'bcrypt-nodejs';
+import cors from 'cors';
+import knex from 'knex';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env' });
 
-const register = require('./controllers/register');
-const login = require('./controllers/login');
-const socket = require('./controllers/socket');
-const friends = require('./controllers/friends');
-const game = require('./controllers/game');
-const leaderboard = require('./controllers/leaderboard');
-const unity = require('./controllers/unity');
+import * as register from './controllers/register.js';
+import * as login from './controllers/login.js';
+import * as socket from './controllers/socket.js';
+import * as friends from './controllers/friends.js';
+import * as game from './controllers/game.js';
+import * as leaderboard from './controllers/leaderboard.js';
+import * as unity from './controllers/unity.js';
+import * as pusher from './controllers/pusher.js';
 
 const app = express();
 
@@ -62,7 +64,7 @@ app.get('/getTopFive', (req, res) => { leaderboard.getTopFive(req, res, db) })
 
 app.put('/updateSearching', (req, res) => { game.updateSearching(req, res, db) })
 
-app.get('/findMatch', (req, res) => { game.findMatch(req, res, db) })
+app.put('/findMatch', (req, res) => { game.findMatch(req, res, db) })
 
 app.put('/updateOnlineStatus', (req, res) => { friends.updateOnlineStatus(req, res, db) })
 
@@ -78,6 +80,35 @@ app.get('/checkIfOppOnline', (req, res) => { game.checkIfOppOnline(req, res, db)
 
 app.get('/checkIfOppInGame', (req, res) => { game.checkIfOppInGame(req, res, db) })
 
+app.put('/setChannel', (req, res) => { game.setChannel(req, res, db) })
+
+
+
+// Pusher
+
+app.get('/pusher/pusherAuth', (req, res) => { pusher.authenticate(req, res) })
+
+// app.get('/pusher/goToGame', (req, res) => { pusher.goToGame(req, res) })
+
+app.get('/pusher/sendShotToOpponent', (req, res) => { pusher.sendShotToOpponent(req, res) })
+
+app.get('/pusher/sendResultToOpponentBoard', (req, res) => { pusher.sendResultToOpponentBoard(req, res) })
+
+app.get('/pusher/updateUserStatus', (req, res) => { pusher.updateUserStatus(req, res) })
+
+app.get('/pusher/sendInvite', (req, res) => { pusher.sendInvite(req, res) })
+
+app.get('/pusher/sendGoToGame', (req, res) => { pusher.sendGoToGame(req, res) })
+
+app.get('/pusher/sendFriendRequest', (req, res) => { pusher.sendFriendRequest(req, res) })
+
+app.get('/pusher/sendReadyStatus', (req, res) => { pusher.sendReadyStatus(req, res) })
+
+app.get('/pusher/gameOver', (req, res) => { pusher.gameOver(req, res) })
+
+app.get('/pusher/sendExitGame', (req, res) => { pusher.sendExitGame(req, res) })
+
+app.get('/pusher/sendMessage', (req, res) => { pusher.sendMessage(req, res) })
 
 
 
@@ -91,21 +122,21 @@ app.listen(process.env.PORT || 4000, () => {
     console.log(`app is running on port ${process.env.PORT || 4000}`);
 })
 
-const allowCors = fn => async (req, res) => {
-  res.setHeader('Access-Control-Allow-Credentials', true)
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  // another common pattern
-  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  )
-  if (req.method === 'OPTIONS') {
-    res.status(200).end()
-    return
-  }
-  return await fn(req, res)
-}
+// const allowCors = fn => async (req, res) => {
+//   res.setHeader('Access-Control-Allow-Credentials', true)
+//   res.setHeader('Access-Control-Allow-Origin', '*')
+//   // another common pattern
+//   // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+//   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+//   res.setHeader(
+//     'Access-Control-Allow-Headers',
+//     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+//   )
+//   if (req.method === 'OPTIONS') {
+//     res.status(200).end()
+//     return
+//   }
+//   return await fn(req, res)
+// }
 
-module.exports = allowCors(app)
+// module.exports = allowCors(app)

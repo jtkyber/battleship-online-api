@@ -22,26 +22,47 @@ const updateSearching = (req, res, db) => {
 }
 
 const findMatch = (req, res, db) => {
-    const username = req.query.username;
-    const socketid = req.query.socketid;
+    const username = req.body.username;
+    // const socketid = req.query.socketid;
     const curTime = Date.now();
     db('users').where('searchingformatch', 't')
     .andWhere('lastonline', '>', (curTime-3000))
     .andWhere('ingame', 'f')
     .andWhereNot({
-        socketid: null,
+        // socketid: null,
         username: username
     })
-    .andWhereNot('socketid', '=', socketid)
-    .select('username','socketid')
+    // .andWhereNot('socketid', '=', socketid)
+    .select('username')
     .then(user => {
         if (!user[0].username.length) {
             res.json(null);
         } else {
-            res.json(user[0]);
+            // db('users')
+            // .where('username', '=', username)
+            // .update({
+            //     channel: user[0].channel
+            // })
+            // .then(() => {
+            //     res.json({username: user[0].username, channel: user[0].channel});
+            // })
+            // .catch(() => res.status(400).json('Could not find match2'))
+            res.json(user[0])
         }
     })
     .catch(() => res.status(400).json('Could not find match'))
+}
+
+const setChannel = (req, res, db) => {
+    const { username, channel } = req.body;
+    db('users').where('username', '=', username)
+    .update({
+        channel: channel
+    })
+    .then(() => {
+        res.json(true);
+    })
+    .catch(() => res.status(400).json('Could not update inGame status'))
 }
 
 const setInGame = (req, res, db) => {
@@ -57,14 +78,13 @@ const setInGame = (req, res, db) => {
 }
 
 const addGuestUser = (req, res, db) => {
-    const { socketid } = req.body;
     const guestName = 'Guest' + Math.floor(Math.random() * 1000000);
     const curTime = Date.now();
     db('users')
     .insert({
         username: guestName,
         hash: 'guest',
-        socketid: socketid,
+        socketid: null,
         score: 0,
         friends: null,
         friendrequests: null,
@@ -130,10 +150,11 @@ const checkIfOppInGame = (req, res, db) => {
     .catch(() => res.status(400).json('Error'))
 }
 
-module.exports = {
+export {
     updateScore,
     updateSearching,
     findMatch,
+    setChannel,
     setInGame,
     addGuestUser,
     removeGuestUser,
