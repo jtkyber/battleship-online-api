@@ -1,12 +1,10 @@
 const handleLogin = (req, res, db, bcrypt) => {
 	const { username, password } = req.body;
-	console.log(1, username);
 
 	db('users')
 		.where('username', '=', username)
 		.returning('*')
 		.then(user => {
-			console.log(2, user);
 			const isValid = bcrypt.compareSync(password, user[0].hash);
 			if (isValid) {
 				db('users')
