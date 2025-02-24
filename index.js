@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import knex from 'knex';
-dotenv.config({ path: '.env' });
+dotenv.config();
 
 import * as friends from './controllers/friends.js';
 import * as game from './controllers/game.js';
@@ -23,13 +23,13 @@ app.use(
 	})
 );
 
-const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
-const connectionString = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?options=project%3D${ENDPOINT_ID}`;
+// const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
+// const connectionString = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?options=project%3D${ENDPOINT_ID}`;
 
 const db = knex({
 	client: 'pg',
 	connection: {
-		connectionString,
+		connectionString: process.env.DATABASE_URL,
 		ssl: {
 			rejectUnauthorized: false,
 		},
@@ -37,7 +37,7 @@ const db = knex({
 });
 
 app.get('/', (req, res) => {
-	res.json(connectionString);
+	res.json(process.env.DATABASE_URL);
 });
 
 app.post('/register', (req, res) => {
