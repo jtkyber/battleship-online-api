@@ -45,7 +45,6 @@ app.post('/register', (req, res) => {
 });
 
 app.put('/login', (req, res) => {
-	console.log(req);
 	login.handleLogin(req, res, db, bcrypt);
 });
 
