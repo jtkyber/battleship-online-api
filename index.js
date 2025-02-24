@@ -23,13 +23,13 @@ app.use(
 	})
 );
 
-// const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
-// const connectionString = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?options=project%3D${ENDPOINT_ID}`;
+const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
+const connectionString = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?options=project%3D${ENDPOINT_ID}`;
 
 const db = knex({
 	client: 'pg',
 	connection: {
-		connectionString: process.env.DATABASE_URL,
+		connectionString,
 		ssl: {
 			rejectUnauthorized: false,
 		},
@@ -37,7 +37,7 @@ const db = knex({
 });
 
 app.get('/', (req, res) => {
-	res.json(process.env.DATABASE_URL);
+	res.json(connectionString);
 });
 
 app.post('/register', (req, res) => {
