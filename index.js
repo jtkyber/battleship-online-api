@@ -26,12 +26,24 @@ app.use(
 	})
 );
 
+// const db = knex({
+// 	client: 'pg',
+// 	connection: {
+// 		connectionString: process.env.DATABASE_URL,
+// 		ssl: { rejectUnauthorized: false },
+// 		port: 5432,
+// 	},
+// });
+
 const db = knex({
 	client: 'pg',
 	connection: {
-		connectionString: process.env.DATABASE_URL,
-		ssl: { rejectUnauthorized: false },
+		host: 'ep-late-hill-891822.us-east-2.aws.neon.tech',
+		user: 'joeykyber',
+		password: process.env.PGPASSWORD,
+		database: 'neondb',
 		port: 5432,
+		ssl: { rejectUnauthorized: false },
 	},
 });
 
