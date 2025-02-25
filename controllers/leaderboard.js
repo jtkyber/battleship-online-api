@@ -1,5 +1,4 @@
 const getTopFive = (req, res, db) => {
-	console.log(db);
 	db('users')
 		.select('username', 'score')
 		.orderBy('score', 'desc')
