@@ -40,6 +40,18 @@ app.get('/', (req, res) => {
 	// res.json(process.env.DATABASE_URL);
 });
 
+app.get('/db-test', async (req, res) => {
+	try {
+		console.log('Testing Neon connection');
+		const result = await db.raw('SELECT NOW()');
+		console.log('Neon response:', result.rows);
+		res.json({ message: 'Connected', time: result.rows[0].now });
+	} catch (err) {
+		console.error('Neon error:', err);
+		res.status(500).json({ error: 'DB connection failed', code: err.code, details: err.message });
+	}
+});
+
 app.post('/register', (req, res) => {
 	register.handleRegister(req, res, db, bcrypt);
 });
