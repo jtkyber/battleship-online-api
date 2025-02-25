@@ -37,8 +37,7 @@ const db = knex({
 });
 
 app.get('/', (req, res) => {
-	console.log(process.env.DATABASE_URL);
-	res.json(process.env.DATABASE_URL);
+	// res.json(process.env.DATABASE_URL);
 });
 
 app.post('/register', (req, res) => {
